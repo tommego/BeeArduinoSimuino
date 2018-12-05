@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/icon_mega.png</file>
+        <file>icons/icon_uno.png</file>
+    </qresource>
+</RCC>

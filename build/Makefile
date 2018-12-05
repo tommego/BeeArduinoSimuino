@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CONCURRENT_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CONCURRENT_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../src/BeeArduino -I. -I../../../V-PlaySDK/V-Play/gcc_64/include -I../../../V-PlaySDK/V-Play/gcc_64/include/QtQuick -I../../../V-PlaySDK/V-Play/gcc_64/include/QtGui -I../../../V-PlaySDK/V-Play/gcc_64/include/QtQml -I../../../V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I../../../V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I../../../V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../src/BeeArduino -I. -I../../../V-PlaySDK/V-Play/gcc_64/include -I../../../V-PlaySDK/V-Play/gcc_64/include/QtQuick -I../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I../../../V-PlaySDK/V-Play/gcc_64/include/QtGui -I../../../V-PlaySDK/V-Play/gcc_64/include/QtQml -I../../../V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I../../../V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I../../../V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/beetom/V-PlaySDK/V-Play/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = BeeArduino1.0.0
 DISTDIR = /home/beetom/Workspace/BeeArduinoSimuino/build/.tmp/BeeArduino1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/beetom/V-PlaySDK/V-Play/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/beetom/V-PlaySDK/V-Play/gcc_64/lib -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Concurrent -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/beetom/V-PlaySDK/V-Play/gcc_64/lib -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Concurrent -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -51,12 +51,48 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../src/BeeArduino/main.cpp \
-		../src/BeeArduino/arduino.cpp qrc_qml.cpp \
-		moc_arduino.cpp
+		../src/BeeArduino/arduino.cpp \
+		../src/BeeArduino/core/ecs/entity.cpp \
+		../src/BeeArduino/core/ecs/component.cpp \
+		../src/BeeArduino/core/ecs/system.cpp \
+		../src/BeeArduino/core/ecs/entitymanager.cpp \
+		../src/BeeArduino/core/views/mainwindow.cpp \
+		../src/BeeArduino/core/widgets/playground.cpp \
+		../src/BeeArduino/core/entities/spotentity.cpp \
+		../src/BeeArduino/core/ecs/systemmanager.cpp \
+		../src/BeeArduino/core/entities/unoboardentity.cpp qrc_qml.cpp \
+		qrc_res.cpp \
+		moc_arduino.cpp \
+		moc_entity.cpp \
+		moc_component.cpp \
+		moc_system.cpp \
+		moc_entitymanager.cpp \
+		moc_mainwindow.cpp \
+		moc_playground.cpp \
+		moc_systemmanager.cpp \
+		moc_unoboardentity.cpp
 OBJECTS       = main.o \
 		arduino.o \
+		entity.o \
+		component.o \
+		system.o \
+		entitymanager.o \
+		mainwindow.o \
+		playground.o \
+		spotentity.o \
+		systemmanager.o \
+		unoboardentity.o \
 		qrc_qml.o \
-		moc_arduino.o
+		qrc_res.o \
+		moc_arduino.o \
+		moc_entity.o \
+		moc_component.o \
+		moc_system.o \
+		moc_entitymanager.o \
+		moc_mainwindow.o \
+		moc_playground.o \
+		moc_systemmanager.o \
+		moc_unoboardentity.o
 DIST          = ../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_pre.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/common/unix.conf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/common/linux.conf \
@@ -222,6 +258,7 @@ DIST          = ../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_pre.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/qt_config.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_post.prf \
+		../src/BeeArduino/.qmake.stash \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/toolchain.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/default_pre.prf \
@@ -233,6 +270,7 @@ DIST          = ../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_pre.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/resources.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/moc.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/unix/opengl.prf \
+		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/uic.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/unix/thread.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/qmake_use.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/file_copies.prf \
@@ -240,8 +278,27 @@ DIST          = ../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_pre.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/exceptions.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/yacc.prf \
 		../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/lex.prf \
-		../src/src/BeeArduino/BeeArduino.pro ../src/BeeArduino/arduino.h ../src/BeeArduino/main.cpp \
-		../src/BeeArduino/arduino.cpp
+		../src/src/BeeArduino/BeeArduino.pro ../src/BeeArduino/arduino.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/views/mainwindow.h \
+		../src/BeeArduino/core/widgets/playground.h \
+		../src/BeeArduino/core/global/defines.h \
+		../src/BeeArduino/core/entities/spotentity.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/entities/unoboardentity.h ../src/BeeArduino/main.cpp \
+		../src/BeeArduino/arduino.cpp \
+		../src/BeeArduino/core/ecs/entity.cpp \
+		../src/BeeArduino/core/ecs/component.cpp \
+		../src/BeeArduino/core/ecs/system.cpp \
+		../src/BeeArduino/core/ecs/entitymanager.cpp \
+		../src/BeeArduino/core/views/mainwindow.cpp \
+		../src/BeeArduino/core/widgets/playground.cpp \
+		../src/BeeArduino/core/entities/spotentity.cpp \
+		../src/BeeArduino/core/ecs/systemmanager.cpp \
+		../src/BeeArduino/core/entities/unoboardentity.cpp
 QMAKE_TARGET  = BeeArduino
 DESTDIR       = ./
 TARGET        = ./BeeArduino
@@ -419,6 +476,7 @@ Makefile: ../src/BeeArduino/BeeArduino.pro ../../../V-PlaySDK/V-Play/gcc_64/mksp
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/qt_config.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/toolchain.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/default_pre.prf \
@@ -430,6 +488,7 @@ Makefile: ../src/BeeArduino/BeeArduino.pro ../../../V-PlaySDK/V-Play/gcc_64/mksp
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/resources.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/moc.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/unix/opengl.prf \
+		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/uic.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/unix/thread.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/qmake_use.prf \
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/file_copies.prf \
@@ -439,7 +498,9 @@ Makefile: ../src/BeeArduino/BeeArduino.pro ../../../V-PlaySDK/V-Play/gcc_64/mksp
 		../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/lex.prf \
 		../src/BeeArduino/BeeArduino.pro \
 		../src/BeeArduino/qml.qrc \
+		../src/BeeArduino/res.qrc \
 		../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Quick.prl \
+		../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Widgets.prl \
 		../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Gui.prl \
 		../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Qml.prl \
 		../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Network.prl \
@@ -611,6 +672,7 @@ Makefile: ../src/BeeArduino/BeeArduino.pro ../../../V-PlaySDK/V-Play/gcc_64/mksp
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/qt_config.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/toolchain.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/default_pre.prf:
@@ -622,6 +684,7 @@ Makefile: ../src/BeeArduino/BeeArduino.pro ../../../V-PlaySDK/V-Play/gcc_64/mksp
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/resources.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/moc.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/unix/opengl.prf:
+../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/uic.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/unix/thread.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/qmake_use.prf:
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/file_copies.prf:
@@ -631,7 +694,9 @@ Makefile: ../src/BeeArduino/BeeArduino.pro ../../../V-PlaySDK/V-Play/gcc_64/mksp
 ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/lex.prf:
 ../src/BeeArduino/BeeArduino.pro:
 ../src/BeeArduino/qml.qrc:
+../src/BeeArduino/res.qrc:
 ../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Quick.prl:
+../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Widgets.prl:
 ../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Gui.prl:
 ../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Qml.prl:
 ../../../V-PlaySDK/V-Play/gcc_64/lib/libQt5Network.prl:
@@ -651,10 +716,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/BeeArduino/qml.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/BeeArduino/qml.qrc ../src/BeeArduino/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/BeeArduino/arduino.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/BeeArduino/main.cpp ../src/BeeArduino/arduino.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/BeeArduino/arduino.h ../src/BeeArduino/core/ecs/entity.h ../src/BeeArduino/core/ecs/component.h ../src/BeeArduino/core/ecs/system.h ../src/BeeArduino/core/ecs/entitymanager.h ../src/BeeArduino/core/views/mainwindow.h ../src/BeeArduino/core/widgets/playground.h ../src/BeeArduino/core/global/defines.h ../src/BeeArduino/core/entities/spotentity.h ../src/BeeArduino/core/ecs/systemmanager.h ../src/BeeArduino/core/entities/unoboardentity.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/BeeArduino/main.cpp ../src/BeeArduino/arduino.cpp ../src/BeeArduino/core/ecs/entity.cpp ../src/BeeArduino/core/ecs/component.cpp ../src/BeeArduino/core/ecs/system.cpp ../src/BeeArduino/core/ecs/entitymanager.cpp ../src/BeeArduino/core/views/mainwindow.cpp ../src/BeeArduino/core/widgets/playground.cpp ../src/BeeArduino/core/entities/spotentity.cpp ../src/BeeArduino/core/ecs/systemmanager.cpp ../src/BeeArduino/core/entities/unoboardentity.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -678,13 +743,19 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_qml.cpp
+compiler_rcc_make_all: qrc_qml.cpp qrc_res.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_qml.cpp
+	-$(DEL_FILE) qrc_qml.cpp qrc_res.cpp
 qrc_qml.cpp: ../src/BeeArduino/qml.qrc \
 		../../../V-PlaySDK/V-Play/gcc_64/bin/rcc \
 		../src/BeeArduino/main.qml
 	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/rcc -name qml ../src/BeeArduino/qml.qrc -o qrc_qml.cpp
+
+qrc_res.cpp: ../src/BeeArduino/res.qrc \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/rcc \
+		../src/BeeArduino/icons/icon_uno.png \
+		../src/BeeArduino/icons/icon_mega.png
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/rcc -name res ../src/BeeArduino/res.qrc -o qrc_res.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
@@ -692,9 +763,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../../V-PlaySDK/V-Play/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_arduino.cpp
+compiler_moc_header_make_all: moc_arduino.cpp moc_entity.cpp moc_component.cpp moc_system.cpp moc_entitymanager.cpp moc_mainwindow.cpp moc_playground.cpp moc_systemmanager.cpp moc_unoboardentity.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_arduino.cpp
+	-$(DEL_FILE) moc_arduino.cpp moc_entity.cpp moc_component.cpp moc_system.cpp moc_entitymanager.cpp moc_mainwindow.cpp moc_playground.cpp moc_systemmanager.cpp moc_unoboardentity.cpp
 moc_arduino.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
@@ -758,12 +829,1013 @@ moc_arduino.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
 		../src/BeeArduino/arduino.h \
 		moc_predefs.h \
 		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
-	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/arduino.h -o moc_arduino.cpp
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/arduino.h -o moc_arduino.cpp
+
+moc_entity.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/ecs/entity.h -o moc_entity.cpp
+
+moc_component.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../src/BeeArduino/core/ecs/component.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/ecs/component.h -o moc_component.cpp
+
+moc_system.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../src/BeeArduino/core/ecs/system.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/ecs/system.h -o moc_system.cpp
+
+moc_entitymanager.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/ecs/entitymanager.h -o moc_entitymanager.cpp
+
+moc_mainwindow.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QMainWindow \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qmainwindow.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpalette.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcursor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qkeysequence.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurlquery.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfile.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfiledevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qvector2d.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qicon.h \
+		../src/BeeArduino/core/widgets/playground.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QFrame \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qframe.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QWheelEvent \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QMouseEvent \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QSlider \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qslider.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractslider.h \
+		../src/BeeArduino/core/views/mainwindow.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/views/mainwindow.h -o moc_mainwindow.cpp
+
+moc_playground.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QFrame \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qframe.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpalette.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcursor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qkeysequence.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurlquery.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfile.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfiledevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qvector2d.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QWheelEvent \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QMouseEvent \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QSlider \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qslider.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractslider.h \
+		../src/BeeArduino/core/widgets/playground.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/widgets/playground.h -o moc_playground.cpp
+
+moc_systemmanager.cpp: ../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/ecs/systemmanager.h -o moc_systemmanager.cpp
+
+moc_unoboardentity.cpp: ../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../src/BeeArduino/core/entities/unoboardentity.h \
+		moc_predefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/bin/moc
+	/home/beetom/V-PlaySDK/V-Play/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/beetom/V-PlaySDK/V-Play/gcc_64/mkspecs/linux-g++ -I/home/beetom/Workspace/BeeArduinoSimuino/src/BeeArduino -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQuick -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtWidgets -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtGui -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtQml -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtNetwork -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtConcurrent -I/home/beetom/V-PlaySDK/V-Play/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/BeeArduino/core/entities/unoboardentity.h -o moc_unoboardentity.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
+compiler_uic_make_all:
+compiler_uic_clean:
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -847,11 +1919,46 @@ main.o: ../src/BeeArduino/main.cpp ../../../V-PlaySDK/V-Play/gcc_64/include/QtGu
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QApplication \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcursor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpalette.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qkeysequence.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurlquery.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfile.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfiledevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qvector2d.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml/QQmlApplicationEngine \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml/qqmlapplicationengine.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml/qqmlengine.h \
-		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurl.h \
-		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurlquery.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml/qjsengine.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml/qjsvalue.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml/qtqmlglobal.h \
@@ -875,7 +1982,55 @@ main.o: ../src/BeeArduino/main.cpp ../../../V-PlaySDK/V-Play/gcc_64/include/QtGu
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qthreadpool.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qthread.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrunnable.h \
-		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtQml \
+		../src/BeeArduino/core/views/mainwindow.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QMainWindow \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qmainwindow.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qicon.h \
+		../src/BeeArduino/core/widgets/playground.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QFrame \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qframe.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QWheelEvent \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QMouseEvent \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QSlider \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qslider.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractslider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/BeeArduino/main.cpp
 
 arduino.o: ../src/BeeArduino/arduino.cpp ../src/BeeArduino/arduino.h \
@@ -953,11 +2108,1150 @@ arduino.o: ../src/BeeArduino/arduino.cpp ../src/BeeArduino/arduino.h \
 		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o arduino.o ../src/BeeArduino/arduino.cpp
 
+entity.o: ../src/BeeArduino/core/ecs/entity.cpp ../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o entity.o ../src/BeeArduino/core/ecs/entity.cpp
+
+component.o: ../src/BeeArduino/core/ecs/component.cpp ../src/BeeArduino/core/ecs/component.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o component.o ../src/BeeArduino/core/ecs/component.cpp
+
+system.o: ../src/BeeArduino/core/ecs/system.cpp ../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o system.o ../src/BeeArduino/core/ecs/system.cpp
+
+entitymanager.o: ../src/BeeArduino/core/ecs/entitymanager.cpp ../src/BeeArduino/core/ecs/entitymanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o entitymanager.o ../src/BeeArduino/core/ecs/entitymanager.cpp
+
+mainwindow.o: ../src/BeeArduino/core/views/mainwindow.cpp ../src/BeeArduino/core/views/mainwindow.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QMainWindow \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qmainwindow.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpalette.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcursor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qkeysequence.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurlquery.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfile.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfiledevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qvector2d.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qicon.h \
+		../src/BeeArduino/core/widgets/playground.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QFrame \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qframe.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QWheelEvent \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QMouseEvent \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QSlider \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qslider.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractslider.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../src/BeeArduino/core/views/mainwindow.cpp
+
+playground.o: ../src/BeeArduino/core/widgets/playground.cpp ../src/BeeArduino/core/widgets/playground.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QFrame \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qframe.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qwidget.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpalette.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcursor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qkeysequence.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qurlquery.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfile.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfiledevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qvector2d.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QWheelEvent \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QMouseEvent \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QSlider \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qslider.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qlayout.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QScrollBar \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qscrollbar.h \
+		../src/BeeArduino/core/entities/unoboardentity.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playground.o ../src/BeeArduino/core/widgets/playground.cpp
+
+spotentity.o: ../src/BeeArduino/core/entities/spotentity.cpp ../src/BeeArduino/core/entities/spotentity.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spotentity.o ../src/BeeArduino/core/entities/spotentity.cpp
+
+systemmanager.o: ../src/BeeArduino/core/ecs/systemmanager.cpp ../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o systemmanager.o ../src/BeeArduino/core/ecs/systemmanager.cpp
+
+unoboardentity.o: ../src/BeeArduino/core/entities/unoboardentity.cpp ../src/BeeArduino/core/entities/unoboardentity.h \
+		../src/BeeArduino/core/global/defines.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QSharedPointer \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qconfig.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtcore-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsysinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlogging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qflags.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmutex.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnumeric.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qversiontagging.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qshareddata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhash.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qchar.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiterator.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrefcount.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qarraydata.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstring.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qnamespace.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringliteral.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringview.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpair.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringlist.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qregexp.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreevent.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmetatype.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qobject_impl.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QMap \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdebug.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qtextstream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qiodevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qlocale.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvariant.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qvector.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpoint.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qset.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QColor \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qcolor.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtgui-config.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgb.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qrgba64.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainter \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainter.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qrect.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmargins.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qsize.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixmap.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimage.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpixelformat.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtransform.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qmatrix.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpolygon.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qregion.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qdatastream.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qline.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpainterpath.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qtextoption.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qpen.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qbrush.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontinfo.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfont.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPainterPath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QPen \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QDebug \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QtMath \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qmath.h \
+		../src/BeeArduino/core/ecs/systemmanager.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/QObject \
+		../src/BeeArduino/core/ecs/entitymanager.h \
+		../src/BeeArduino/core/ecs/entity.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/QGraphicsObject \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../src/BeeArduino/core/ecs/component.h \
+		../src/BeeArduino/core/ecs/system.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImage \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/QImageReader \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimagereader.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qeventloop.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtGui/qimageiohandler.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qplugin.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qpointer.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonobject.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../V-PlaySDK/V-Play/gcc_64/include/QtCore/qfactoryinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o unoboardentity.o ../src/BeeArduino/core/entities/unoboardentity.cpp
+
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
 
+qrc_res.o: qrc_res.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
+
 moc_arduino.o: moc_arduino.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_arduino.o moc_arduino.cpp
+
+moc_entity.o: moc_entity.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_entity.o moc_entity.cpp
+
+moc_component.o: moc_component.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_component.o moc_component.cpp
+
+moc_system.o: moc_system.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_system.o moc_system.cpp
+
+moc_entitymanager.o: moc_entitymanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_entitymanager.o moc_entitymanager.cpp
+
+moc_mainwindow.o: moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_playground.o: moc_playground.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_playground.o moc_playground.cpp
+
+moc_systemmanager.o: moc_systemmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_systemmanager.o moc_systemmanager.cpp
+
+moc_unoboardentity.o: moc_unoboardentity.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_unoboardentity.o moc_unoboardentity.cpp
 
 ####### Install
 

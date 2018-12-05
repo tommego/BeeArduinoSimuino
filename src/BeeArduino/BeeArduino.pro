@@ -1,4 +1,4 @@
-QT += quick concurrent
+QT += quick concurrent core widgets
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -14,9 +14,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    arduino.cpp
+    arduino.cpp \
+    core/ecs/entity.cpp \
+    core/ecs/component.cpp \
+    core/ecs/system.cpp \
+    core/ecs/entitymanager.cpp \
+    core/views/mainwindow.cpp \
+    core/widgets/playground.cpp \
+    core/entities/spotentity.cpp \
+    core/ecs/systemmanager.cpp \
+    core/entities/unoboardentity.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    res.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -30,7 +40,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    arduino.h
+    arduino.h \
+    core/ecs/entity.h \
+    core/ecs/component.h \
+    core/ecs/system.h \
+    core/ecs/entitymanager.h \
+    core/views/mainwindow.h \
+    core/widgets/playground.h \
+    core/global/defines.h \
+    core/entities/spotentity.h \
+    core/ecs/systemmanager.h \
+    core/entities/unoboardentity.h
 
 DISTFILES +=
 
