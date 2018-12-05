@@ -23,7 +23,10 @@ SOURCES += \
     core/widgets/playground.cpp \
     core/entities/spotentity.cpp \
     core/ecs/systemmanager.cpp \
-    core/entities/unoboardentity.cpp
+    core/entities/unoboardentity.cpp \
+    core/entities/pinentity.cpp \
+    core/entities/connectorentity.cpp \
+    core/systems/connectorsystem.cpp
 
 RESOURCES += qml.qrc \
     res.qrc
@@ -50,7 +53,10 @@ HEADERS += \
     core/global/defines.h \
     core/entities/spotentity.h \
     core/ecs/systemmanager.h \
-    core/entities/unoboardentity.h
+    core/entities/unoboardentity.h \
+    core/entities/pinentity.h \
+    core/entities/connectorentity.h \
+    core/systems/connectorsystem.h
 
 DISTFILES +=
 

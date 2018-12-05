@@ -4,6 +4,8 @@
 #include "arduino.h"
 #include <QtQml>
 #include "core/views/mainwindow.h"
+#include <QDesktopWidget>
+#include <QScreen>
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +20,12 @@ int main(int argc, char *argv[])
 //        return -1;
 //    Arduino arduino;
 //    arduino.start();
+
     MainWindow w;
-    w.showMaximized();
+    QSize desktopSize = app.screens().first()->availableGeometry().size();
+    w.resize(desktopSize * 0.5);
+    w.move((desktopSize.width() - w.width()) / 2, (desktopSize.height() - w.height()) / 2);
+    w.show();
 
     return app.exec();
 }

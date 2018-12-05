@@ -6,6 +6,7 @@ Entity::Entity(QGraphicsItem *parent) : QGraphicsObject(parent)
     setFlags(ItemIsSelectable | ItemIsMovable);
     setAcceptHoverEvents(true);
     setAcceptedMouseButtons(Qt::LeftButton);
+    setAcceptDrops(true);
 }
 
 ComponentList Entity::components()
@@ -48,7 +49,7 @@ void Entity::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Entity::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << ">>>";
+    qDebug() << this->pos();
     if (event->modifiers() & Qt::ShiftModifier) {
         update();
         return;

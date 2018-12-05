@@ -6,7 +6,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include "component.h"
 
-class Entity : public QGraphicsObject, QSharedData
+class Entity : public QGraphicsObject
 {
     Q_OBJECT
 public:

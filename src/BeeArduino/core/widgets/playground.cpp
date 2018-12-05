@@ -4,8 +4,11 @@
 #include "../entities/unoboardentity.h"
 #include <QStyleOptionGraphicsItem>
 
+#include "../systems/connectorsystem.h"
+
 Playground::Playground(QWidget *parent) : QFrame(parent),
     mEntityManager(QSharedPointer<EntityManager>(new EntityManager)),
+    mSystemManager(QSharedPointer<SystemManager>(new SystemManager)),
     mMinZoomFactor(5),
     mMaxZoomFactor(1000),
     mZoomFactor(25),
@@ -13,6 +16,7 @@ Playground::Playground(QWidget *parent) : QFrame(parent),
 {
     initUI();
     initConnections();
+    initSystems();
 }
 
 void Playground::initUI()
@@ -27,6 +31,7 @@ void Playground::initUI()
     mScene = QSharedPointer<QGraphicsScene>(new QGraphicsScene(mRenderView.data()));
     mRenderView->setScene(mScene.data());
 
+    // test
     UnoBoardEntity* unoBoard = new UnoBoardEntity();
     mEntityManager->addEntity(unoBoard);
     mScene->addItem(unoBoard);
@@ -47,6 +52,12 @@ void Playground::initConnections()
             mZoomFactor = mMinZoomFactor;
         setupMatrix();
     });
+}
+
+void Playground::initSystems()
+{
+    ConnectorSystem* connectorSys = new ConnectorSystem(nullptr, mScene.data());
+    mSystemManager->addSystem(connectorSys);
 }
 
 void Playground::setupMatrix()

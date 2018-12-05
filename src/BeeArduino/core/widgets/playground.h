@@ -9,6 +9,7 @@
 #include "../global/defines.h"
 #include <QSlider>
 #include "../ecs/entitymanager.h"
+#include "../ecs/systemmanager.h"
 
 class RenderView: public QGraphicsView{
     Q_OBJECT
@@ -33,6 +34,7 @@ public:
     explicit Playground(QWidget *parent = nullptr);
     void initUI();
     void initConnections();
+    void initSystems();
 
 signals:
 
@@ -43,6 +45,7 @@ private:
     QSharedPointer<RenderView> mRenderView;
     QSharedPointer<QGraphicsScene> mScene;
     QSharedPointer<EntityManager> mEntityManager;
+    QSharedPointer<SystemManager> mSystemManager;
     int mMinZoomFactor;
     int mMaxZoomFactor;
     int mZoomFactor;
