@@ -46,6 +46,7 @@ private:
     QSharedPointer<QGraphicsScene> mScene;
     QSharedPointer<EntityManager> mEntityManager;
     QSharedPointer<SystemManager> mSystemManager;
+    QSharedPointer<QTimer> mSceneUpdateTimer;
     int mMinZoomFactor;
     int mMaxZoomFactor;
     int mZoomFactor;

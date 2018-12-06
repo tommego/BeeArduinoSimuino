@@ -4,7 +4,12 @@
 #include <QStyleOptionGraphicsItem>
 #include <QDebug>
 
-PinEntity::PinEntity(QGraphicsItem *parent) : Entity (parent)
+PinEntity::PinEntity(QGraphicsItem *parent) : Entity (parent),
+    mPinMode(0),
+    mPinVal(0),
+    mPinInColor(QColor(100, 234, 187)),
+    mPinOutColor(QColor(100, 187, 234)),
+    mPinGroundColor(QColor(100, 100, 80))
 {
     setFlags(ItemIsSelectable);
 }
@@ -18,6 +23,7 @@ void PinEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     Q_UNUSED(widget)
 
+    QColor pinColor = pinMode() == 0 ? pinInColor() : (pinMode() == 1 ? pinOutColor() : pinGroundColor());
     QPen pen;
     pen.setWidth(2);
     QColor drawColor(40, 40, 40);
@@ -27,18 +33,18 @@ void PinEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QRectF rect = boundingRect();
     rect.setSize(size);
     rect.moveCenter(boundingRect().center());
-    painter->fillRect(rect, QColor(200, 160, 200));
+    painter->fillRect(rect, pinColor);
     painter->drawRect(rect);
 
     if(option->state & QStyle::State_MouseOver || option->state & QStyle::State_Selected) {
-        painter->fillRect(rect, QColor(255, 160, 200));
+        painter->fillRect(rect, pinColor.lighter(120));
         pen.setColor(QColor(255, 255, 255));
         painter->setPen(pen);
         painter->drawRect(rect);
     }
 
     if(option->state & QStyle::State_Selected) {
-        painter->fillRect(rect, QColor(255, 160, 200));
+        painter->fillRect(rect, pinColor.lighter(120));
         pen.setColor(QColor(100, 255, 255));
         pen.setWidth(1);
         painter->setPen(pen);
@@ -52,7 +58,6 @@ void PinEntity::setPinMode(const int &mode)
 {
     mPinMode = mode;
     update();
-    emit tick();
     emit pinModeChanged(mode);
 }
 
@@ -60,12 +65,10 @@ void PinEntity::setPinVal(const int &val)
 {
     mPinVal = val;
     update();
-    emit tick();
     emit pinValChanged(val);
 }
 
 void PinEntity::resetState()
 {
     update();
-    emit tick();
 }

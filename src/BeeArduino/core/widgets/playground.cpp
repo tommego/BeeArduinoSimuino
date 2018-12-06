@@ -5,36 +5,50 @@
 #include <QStyleOptionGraphicsItem>
 
 #include "../systems/connectorsystem.h"
+#include "../entities/whiteledentity.h"
+#include "../entities/groundentity.h"
 
 Playground::Playground(QWidget *parent) : QFrame(parent),
+    mRenderView(QSharedPointer<RenderView>(new RenderView(this))),
+    mScene(QSharedPointer<QGraphicsScene>(new QGraphicsScene(this))),
     mEntityManager(QSharedPointer<EntityManager>(new EntityManager)),
     mSystemManager(QSharedPointer<SystemManager>(new SystemManager)),
+    mSceneUpdateTimer(QSharedPointer<QTimer>(new QTimer(this))),
     mMinZoomFactor(5),
     mMaxZoomFactor(1000),
     mZoomFactor(25),
     mZoomBase(25)
 {
+    mSceneUpdateTimer->setInterval(20);
     initUI();
     initConnections();
     initSystems();
+    mSceneUpdateTimer->start();
 }
 
 void Playground::initUI()
 {
     setFrameStyle(Sunken | StyledPanel);
     QVBoxLayout* mainLayout = new QVBoxLayout;
-    mRenderView = QSharedPointer<RenderView>(new RenderView(this));
     mainLayout->addWidget(mRenderView.data());
     mainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(mainLayout);
 
-    mScene = QSharedPointer<QGraphicsScene>(new QGraphicsScene(mRenderView.data()));
     mRenderView->setScene(mScene.data());
 
     // test
     UnoBoardEntity* unoBoard = new UnoBoardEntity();
     mEntityManager->addEntity(unoBoard);
     mScene->addItem(unoBoard);
+
+    WhiteLedEntity* whiteLed = new WhiteLedEntity;
+    mEntityManager->addEntity(whiteLed);
+    mScene->addItem(whiteLed);
+
+    GroundEntity* ground = new GroundEntity;
+    mEntityManager->addEntity(ground);
+    mScene->addItem(ground);
+
     setStyleSheet("background-color: #232936; border-color: #444444;");
 }
 
@@ -51,6 +65,10 @@ void Playground::initConnections()
         if(mZoomFactor < mMinZoomFactor)
             mZoomFactor = mMinZoomFactor;
         setupMatrix();
+    });
+
+    connect(mSceneUpdateTimer.data(), &QTimer::timeout, [=]{
+        mScene->update(mRenderView->sceneRect());
     });
 }
 

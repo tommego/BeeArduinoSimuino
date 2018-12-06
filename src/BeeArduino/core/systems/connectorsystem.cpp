@@ -3,12 +3,27 @@
 #include <QDebug>
 #include <QCursor>
 #include <QGraphicsView>
+#include <QGraphicsItem>
 
 ConnectorSystem::ConnectorSystem(QObject *parent, QGraphicsScene* scene): System (parent),
     scene(QSharedPointer<QGraphicsScene>(scene))
 {
     initConnections();
     mSelectedPin = nullptr;
+}
+
+ConnectorSystem::~ConnectorSystem()
+{
+    qDebug() << ">>>>>>>>>>>" << scene;
+//    if(scene){
+//        foreach (QGraphicsItem* item, scene->items()) {
+//            Entity* entity = static_cast<Entity*>(item);
+//            if(entity) {
+//                disconnect(entity, &Entity::selected, this, &ConnectorSystem::onItemSelected);
+//                disconnect(entity, &Entity::diselected, this, &ConnectorSystem::onItemDiselected);
+//            }
+//        }
+//    }
 }
 
 void ConnectorSystem::initConnections()
@@ -38,6 +53,13 @@ void ConnectorSystem::onItemSelected(Entity *entity)
     }
 
     if(mSelectedPin && mSelectedPin != pin){
+
+        // cannot connect with two same pin mode's pins
+        if(mSelectedPin->pinMode() == pin->pinMode()) {
+            mSelectedPin = pin;
+            qDebug() << "cannot connect with two same pin mode's pins" <<  mSelectedPin << "," << pin;
+            return;
+        }
         connectPin(mSelectedPin, pin);
     }
 

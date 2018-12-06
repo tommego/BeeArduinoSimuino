@@ -14,6 +14,7 @@ class ConnectorSystem : public System
     Q_OBJECT
 public:
     ConnectorSystem(QObject* parent = nullptr, QGraphicsScene* scene = nullptr);
+    ~ConnectorSystem();
     void initConnections();
 
 public slots:

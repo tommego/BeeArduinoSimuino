@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'arduino.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,7 +13,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'arduino.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.11.1. It"
+#error "This file was generated using the moc from 5.12.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -57,7 +57,7 @@ QT_MOC_LITERAL(12, 122, 9) // "pinRWVals"
 static const uint qt_meta_data_Arduino[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        6,   14, // methods
@@ -175,10 +175,14 @@ void Arduino::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
 #endif // QT_NO_PROPERTIES
 }
 
-QT_INIT_METAOBJECT const QMetaObject Arduino::staticMetaObject = {
-    { &QProcess::staticMetaObject, qt_meta_stringdata_Arduino.data,
-      qt_meta_data_Arduino,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject Arduino::staticMetaObject = { {
+    &QProcess::staticMetaObject,
+    qt_meta_stringdata_Arduino.data,
+    qt_meta_data_Arduino,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *Arduino::metaObject() const

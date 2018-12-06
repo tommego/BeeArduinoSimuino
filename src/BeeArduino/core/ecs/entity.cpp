@@ -8,26 +8,11 @@ Entity::Entity(QGraphicsItem *parent) : QGraphicsObject(parent)
     setAcceptHoverEvents(true);
     setAcceptedMouseButtons(Qt::LeftButton);
     setAcceptDrops(true);
-    initConnections();
 }
 
 ComponentList Entity::components()
 {
     return mComponents;
-}
-
-void Entity::initConnections()
-{
-    QGraphicsObject* p = this->parentObject();
-    while (p) {
-        connect(p, &QGraphicsObject::xChanged, [=]{emit scenePosChanged();});
-        connect(p, &QGraphicsObject::yChanged, [=]{emit scenePosChanged();});
-        Entity* e = qobject_cast<Entity*>(p);
-        if(e) {
-            connect(e, &Entity::tick, [=]{emit tick();});
-        }
-        p = p->parentObject();
-    }
 }
 
 int Entity::id()
@@ -62,28 +47,24 @@ void Entity::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     Q_UNUSED(painter)
     Q_UNUSED(option)
     Q_UNUSED(widget)
-    emit tick();
 }
 
 void Entity::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    QGraphicsItem::mousePressEvent(event);
     update();
+    QGraphicsItem::mousePressEvent(event);
 }
 
 void Entity::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ShiftModifier) {
-        update();
-        return;
-    }
+    update();
     QGraphicsItem::mouseMoveEvent(event);
 }
 
 void Entity::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    QGraphicsItem::mouseReleaseEvent(event);
     update();
+    QGraphicsItem::mouseReleaseEvent(event);
 }
 
 QVariant Entity::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)

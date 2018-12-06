@@ -5,8 +5,8 @@
 
 
 ConnectorEntity::ConnectorEntity(QGraphicsItem *parent, PinEntity* start, PinEntity* end): Entity (parent),
-    mStartPin(QSharedPointer<PinEntity>(start)),
-    mEndPin(QSharedPointer<PinEntity>(end))
+    mStartPin(start),
+    mEndPin(end)
 {
     setFlags(ItemIsSelectable);
     initConnections();
@@ -23,6 +23,7 @@ QRectF ConnectorEntity::boundingRect() const
     return QRectF( -w / 2 - 3, -h / 2 - 3, w, h);
 }
 
+
 void ConnectorEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget)
@@ -37,14 +38,14 @@ void ConnectorEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 void ConnectorEntity::initConnections()
 {
-    connect(mStartPin.data(), &Entity::scenePosChanged, [=]{
-        this->prepareGeometryChange();
-    });
-    connect(mEndPin.data(), &Entity::scenePosChanged, [=]{
-        this->prepareGeometryChange();
-    });
+//    connect(mStartPin.data(), &Entity::scenePosChanged, [=]{
+//        this->prepareGeometryChange();
+//    });
+//    connect(mEndPin.data(), &Entity::scenePosChanged, [=]{
+//        this->prepareGeometryChange();
+//    });
 
-    connect(mEndPin.data(), &Entity::tick, [=]{
-        this->prepareGeometryChange();
-    });
+//    connect(mEndPin.data(), &Entity::tick, [=]{
+//        this->prepareGeometryChange();
+//    });
 }

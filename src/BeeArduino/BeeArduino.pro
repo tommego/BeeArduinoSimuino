@@ -26,7 +26,11 @@ SOURCES += \
     core/entities/unoboardentity.cpp \
     core/entities/pinentity.cpp \
     core/entities/connectorentity.cpp \
-    core/systems/connectorsystem.cpp
+    core/systems/connectorsystem.cpp \
+    core/entities/roundpinentity.cpp \
+    core/entities/whiteledentity.cpp \
+    core/entities/groundentity.cpp \
+    core/chips/arduino.cpp
 
 RESOURCES += qml.qrc \
     res.qrc
@@ -56,7 +60,11 @@ HEADERS += \
     core/entities/unoboardentity.h \
     core/entities/pinentity.h \
     core/entities/connectorentity.h \
-    core/systems/connectorsystem.h
+    core/systems/connectorsystem.h \
+    core/entities/roundpinentity.h \
+    core/entities/whiteledentity.h \
+    core/entities/groundentity.h \
+    core/chips/arduino.h
 
 DISTFILES +=
 

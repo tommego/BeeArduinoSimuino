@@ -17,8 +17,8 @@ public:
 public slots:
 
 private:
-    QSharedPointer<PinEntity> mStartPin;
-    QSharedPointer<PinEntity> mEndPin;
+    PinEntity* mStartPin;
+    PinEntity* mEndPin;
 };
 
 #endif // CONNECTORENTITY_H

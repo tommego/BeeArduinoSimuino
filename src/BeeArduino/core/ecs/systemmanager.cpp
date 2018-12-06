@@ -1,4 +1,5 @@
 #include "systemmanager.h"
+#include <QDebug>
 
 SystemManager::SystemManager(QObject *parent) : QObject(parent)
 {
@@ -7,6 +8,9 @@ SystemManager::SystemManager(QObject *parent) : QObject(parent)
 
 SystemManager::~SystemManager()
 {
+    foreach (System* sys, mSysMap.values()) {
+        sys->deleteLater();
+    }
 
 }
 

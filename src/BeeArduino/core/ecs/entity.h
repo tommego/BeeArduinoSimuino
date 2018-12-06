@@ -12,7 +12,6 @@ class Entity : public QGraphicsObject
 public:
     explicit Entity(QGraphicsItem *parent = nullptr);
     ComponentList components();
-    void initConnections();
     int id();
     void setID(const int& id);
     bool isValid();

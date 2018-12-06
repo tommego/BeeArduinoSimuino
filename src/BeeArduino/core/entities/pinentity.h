@@ -16,14 +16,25 @@ public:
     const int& pinVal(){return mPinVal;}
     void setPinVal(const int& val);
     void resetState();
+    const QColor& pinInColor(){return mPinInColor;}
+    void setPinInColor(const QColor& color){mPinInColor = color;}
+    const QColor& pinOutColor(){return mPinOutColor;}
+    void setPinOutColor(const QColor& color){mPinOutColor = color;}
+    const QColor& pinGroundColor(){return mPinGroundColor;}
+    void setPinGroundColor(const QColor& color){mPinGroundColor = color; update();}
 
 signals:
     void pinValChanged(const int& val);
     void pinModeChanged(const int& mode);
 
+protected:
+
 private:
-    int mPinMode; // 0: INPUT, 1: OUTPUT
+    int mPinMode; // 0: INPUT, 1: OUTPUT, 2: GROUND
     int mPinVal;
+    QColor mPinInColor;
+    QColor mPinOutColor;
+    QColor mPinGroundColor;
 };
 
 #endif // PINENTITY_H

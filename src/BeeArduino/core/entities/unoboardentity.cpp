@@ -65,4 +65,5 @@ void UnoBoardEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     }
 
     painter->drawImage(boundingRect(), mDrawImg);
+    emit tick();
 }
