@@ -5,6 +5,7 @@
 #include "../global/defines.h"
 #include <QGraphicsSceneMouseEvent>
 #include "pinentity.h"
+#include "../chips/arduino.h"
 
 class UnoBoardEntity: public Entity
 {
@@ -17,6 +18,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 protected:
+    void timerEvent(QTimerEvent *event) override;
 
 signals:
 
@@ -25,6 +27,7 @@ private:
     QImage mDrawImg;
     QSize mBoardSize;
     QList<QSharedPointer<PinEntity>> mPins;
+    Arduino mArduino;
 }; 
 
 #endif // UNOBOARDENTITY_H

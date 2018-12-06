@@ -1,4 +1,4 @@
-QT += quick concurrent core widgets
+QT += quick concurrent core widgets opengl
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -12,9 +12,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+QMAKE_CXXFLAGS += -fopenmp
+LIBS += -lgomp -lpthread
+
 SOURCES += \
         main.cpp \
-    arduino.cpp \
     core/ecs/entity.cpp \
     core/ecs/component.cpp \
     core/ecs/system.cpp \
@@ -30,7 +32,8 @@ SOURCES += \
     core/entities/roundpinentity.cpp \
     core/entities/whiteledentity.cpp \
     core/entities/groundentity.cpp \
-    core/chips/arduino.cpp
+    core/chips/arduino.cpp \
+    core/systems/circuitsimsystem.cpp
 
 RESOURCES += qml.qrc \
     res.qrc
@@ -47,7 +50,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    arduino.h \
     core/ecs/entity.h \
     core/ecs/component.h \
     core/ecs/system.h \
@@ -64,7 +66,8 @@ HEADERS += \
     core/entities/roundpinentity.h \
     core/entities/whiteledentity.h \
     core/entities/groundentity.h \
-    core/chips/arduino.h
+    core/chips/arduino.h \
+    core/systems/circuitsimsystem.h
 
 DISTFILES +=
 

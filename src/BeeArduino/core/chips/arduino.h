@@ -17,19 +17,24 @@ public:
     void initConnection();
     Q_PROPERTY(QList<int> anaVals READ anaVals NOTIFY anaValsChanged)
     Q_PROPERTY(QList<int> digVals READ digVals NOTIFY digValsChanged)
-    Q_PROPERTY(QList<int> pinModVals READ pinModVals NOTIFY pinModVasChanged)
+    Q_PROPERTY(QList<int> pinModVals READ pinModVals NOTIFY pinModValsChanged)
     Q_PROPERTY(QList<int> pinRWVals READ pinRWVals NOTIFY pinRWValsChanged)
 
     QList<int> anaVals() {return mAnaVals;}
     QList<int> digVals() {return mDigVals;}
     QList<int> pinModVals() {return mPinMods;}
     QList<int> pinRWVals() {return mpinRWs;}
+    QList<int> pinVals() {return mPinVals;}
+
+protected:
+    void timerEvent(QTimerEvent *event) override;
 
 signals:
     void anaValsChanged();
     void digValsChanged();
-    void pinModVasChanged();
+    void pinModValsChanged();
     void pinRWValsChanged();
+    void pinValsChanged();
 
 public slots:
     Q_INVOKABLE void start();

@@ -14,7 +14,7 @@ ConnectorSystem::ConnectorSystem(QObject *parent, QGraphicsScene* scene): System
 
 ConnectorSystem::~ConnectorSystem()
 {
-    qDebug() << ">>>>>>>>>>>" << scene;
+//    qDebug() << ">>>>>>>>>>>" << scene;
 //    if(scene){
 //        foreach (QGraphicsItem* item, scene->items()) {
 //            Entity* entity = static_cast<Entity*>(item);
@@ -40,6 +40,8 @@ void ConnectorSystem::initConnections()
 
 void ConnectorSystem::onItemSelected(Entity *entity)
 {
+    if (scene->selectedItems().count() > 2)
+        return;
     PinEntity* pin = qobject_cast<PinEntity*>(entity);
     if(!pin) {
         if(mSelectedPin)

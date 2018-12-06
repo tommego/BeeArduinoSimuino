@@ -17,14 +17,14 @@ WhiteLedEntity::WhiteLedEntity(QGraphicsItem *parent): Entity (parent),
 
 void WhiteLedEntity::initConnections()
 {
-
+    connect(mInputPin.data(), &PinEntity::pinValChanged, this, &WhiteLedEntity::setValue);
 }
 
 void WhiteLedEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget)
-    qreal lVal = (mValue / 255.0) * 100;
-    int light = int(155 + lVal);
+    qreal lVal = (mValue / 255.0) * 200;
+    int light = int(55 + lVal);
     mLightColor = QColor(light, light, light);
 
     // draw pad

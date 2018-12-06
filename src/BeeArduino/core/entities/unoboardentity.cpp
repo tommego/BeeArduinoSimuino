@@ -40,6 +40,8 @@ UnoBoardEntity::UnoBoardEntity(QGraphicsItem *parent): Entity (parent)
     }
 
     setZValue(0);
+    mArduino.start();
+    startTimer(25);
 }
 
 QRectF UnoBoardEntity::boundingRect() const
@@ -66,4 +68,36 @@ void UnoBoardEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     painter->drawImage(boundingRect(), mDrawImg);
     emit tick();
+}
+
+void UnoBoardEntity::timerEvent(QTimerEvent *event)
+{
+
+//    int i = 0;
+//    foreach (const int& val, mArduino.pinVals()) {
+//        mPins.at(i)->setPinVal(val);
+//        i++;
+//    }
+
+//    i = 0;
+//    foreach (const int& val, mArduino.pinModVals()) {
+//        mPins.at(i)->setPinMode(val);
+//        i++;
+//    }
+
+    const QList<int>& pinModeVals = mArduino.pinModVals();
+#pragma omp parallel for num_threads(6)
+    for(int i = 0; i < pinModeVals.count(); i++) {
+        mPins.at(i)->setPinMode(pinModeVals[i]);
+    }
+
+
+    const QList<int>& pinVals = mArduino.pinVals();
+
+#pragma omp parallel for num_threads(6)
+    for(int i = 0; i < pinVals.count(); i++) {
+        mPins.at(i)->setPinVal(pinVals[i]);
+    }
+
+    QObject::timerEvent(event);
 }

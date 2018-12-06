@@ -12,9 +12,7 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
     const int& pinMode(){return mPinMode;}
-    void setPinMode(const int& mode);
     const int& pinVal(){return mPinVal;}
-    void setPinVal(const int& val);
     void resetState();
     const QColor& pinInColor(){return mPinInColor;}
     void setPinInColor(const QColor& color){mPinInColor = color;}
@@ -22,6 +20,11 @@ public:
     void setPinOutColor(const QColor& color){mPinOutColor = color;}
     const QColor& pinGroundColor(){return mPinGroundColor;}
     void setPinGroundColor(const QColor& color){mPinGroundColor = color; update();}
+
+public slots:
+    void setPinVal(const int& val);
+    void setPinMode(const int& mode);
+
 
 signals:
     void pinValChanged(const int& val);

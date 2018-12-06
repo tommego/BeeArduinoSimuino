@@ -61,14 +61,14 @@ void loop() {
   // iterate over the pins:
   for (int thisPin = lowestPin; thisPin <= highestPin; thisPin++) {
     // fade the LED on thisPin from off to brightest:
-    for (int brightness = 0; brightness < 255; brightness++) {
+    for (int brightness = 0; brightness < 255; brightness = brightness + 2) {
       analogWrite(thisPin, brightness);
-      delay(2);
+      delay(1);
     }
     // fade the LED on thisPin from brightest to off:
-    for (int brightness = 255; brightness >= 0; brightness--) {
+    for (int brightness = 255; brightness >= 0; brightness = brightness - 2) {
       analogWrite(thisPin, brightness);
-      delay(2);
+      delay(1);
     }
     // pause between LEDs:
     delay(100);

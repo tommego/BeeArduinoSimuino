@@ -3,8 +3,6 @@
 
 #include "../ecs/system.h"
 #include <QGraphicsScene>
-#include <QDrag>
-#include <QMimeData>
 #include "../entities/connectorentity.h"
 #include <QTimer>
 

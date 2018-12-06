@@ -1,11 +1,11 @@
 #include <QGuiApplication>
 #include <QApplication>
 #include <QQmlApplicationEngine>
-#include "arduino.h"
 #include <QtQml>
 #include "core/views/mainwindow.h"
 #include <QDesktopWidget>
 #include <QScreen>
+#include "core/chips/arduino.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     QSize desktopSize = app.screens().first()->availableGeometry().size();
-    w.resize(desktopSize * 0.3);
+    w.resize(desktopSize * 0.8);
     w.move((desktopSize.width() - w.width()) / 2, (desktopSize.height() - w.height()) / 2);
     w.show();
 

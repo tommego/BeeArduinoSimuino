@@ -4,18 +4,36 @@
 #include <QDebug>
 
 
-ConnectorEntity::ConnectorEntity(QGraphicsItem *parent, PinEntity* start, PinEntity* end): Entity (parent),
-    mStartPin(start),
-    mEndPin(end)
+ConnectorEntity::ConnectorEntity(QGraphicsItem *parent, PinEntity* start, PinEntity* end): Entity (parent)
 {
+    if(start->pinMode() == 0){
+        mInputPin = start;
+        mOutputPin = end;
+    }
+
+    if(end->pinMode() == 0) {
+        mInputPin = end;
+        mOutputPin = start;
+    }
+
+    if(start->pinMode() == 2) {
+        mInputPin = start;
+        mOutputPin = end;
+    }
+
+    if(end->pinMode() == 2) {
+        mInputPin = end;
+        mOutputPin = start;
+    }
+
     setFlags(ItemIsSelectable);
-    initConnections();
-    setZValue(1);
+    startTimer(25, Qt::CoarseTimer);
+//    setZValue(1);
 }
 
 QRectF ConnectorEntity::boundingRect() const
 {
-    QPointF gap = mEndPin->pos() - mStartPin->pos();
+    QPointF gap = mOutputPin->pos() - mInputPin->pos();
     qreal w, h;
     w = qAbs(gap.x()) + 6;
     h = qAbs(gap.y()) + 6;
@@ -33,19 +51,11 @@ void ConnectorEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     QColor drawColor(40, 255, 20);
     pen.setColor(drawColor);
     painter->setPen(pen);
-    painter->drawLine(mStartPin->scenePos() - this->pos(), mEndPin->scenePos() - this->pos());
+    painter->drawLine(mInputPin->scenePos() - this->pos(), mOutputPin->scenePos() - this->pos());
 }
 
-void ConnectorEntity::initConnections()
+void ConnectorEntity::timerEvent(QTimerEvent *event)
 {
-//    connect(mStartPin.data(), &Entity::scenePosChanged, [=]{
-//        this->prepareGeometryChange();
-//    });
-//    connect(mEndPin.data(), &Entity::scenePosChanged, [=]{
-//        this->prepareGeometryChange();
-//    });
-
-//    connect(mEndPin.data(), &Entity::tick, [=]{
-//        this->prepareGeometryChange();
-//    });
+    mInputPin->setPinVal(mOutputPin->pinVal());
+    QObject::timerEvent(event);
 }

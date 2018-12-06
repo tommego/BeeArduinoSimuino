@@ -24,6 +24,7 @@
 
 
 //------ Digital I/O -----------------------
+#include <unistd.h>
 
 void pinMode(int pin,int mode)
 {
@@ -110,6 +111,7 @@ unsigned long micros()
 
 void delay(int ms)
 {
+  usleep(ms * 1000);
   servuinoFunc(S_DELAY,ms,0,NULL,0);
   return;
 }

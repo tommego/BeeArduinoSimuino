@@ -19,17 +19,27 @@ Playground::Playground(QWidget *parent) : QFrame(parent),
     mZoomFactor(25),
     mZoomBase(25)
 {
-    mSceneUpdateTimer->setInterval(20);
+    mSceneUpdateTimer->setInterval(25);
     initUI();
     initConnections();
     initSystems();
-    mSceneUpdateTimer->start();
+//    mSceneUpdateTimer->start();
 }
 
 void Playground::initUI()
 {
     setFrameStyle(Sunken | StyledPanel);
     QVBoxLayout* mainLayout = new QVBoxLayout;
+    GLView* glw = new GLView(QGLFormat(QGL::SampleBuffers));
+//    glw->setStyleSheet("background-color: #232936;");
+//    glw->qglColor(QColor(23, 29, 36));
+    mRenderView->setBackgroundBrush(QColor(23, 29, 36));
+
+    QGLColormap colormap;
+
+    // This will fill the colormap with colors ranging from
+    // black to white.
+    mRenderView->setViewport(glw);
     mainLayout->addWidget(mRenderView.data());
     mainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(mainLayout);
@@ -41,15 +51,20 @@ void Playground::initUI()
     mEntityManager->addEntity(unoBoard);
     mScene->addItem(unoBoard);
 
-    WhiteLedEntity* whiteLed = new WhiteLedEntity;
-    mEntityManager->addEntity(whiteLed);
-    mScene->addItem(whiteLed);
+    for(int i = 0; i < 12; i++) {
+        WhiteLedEntity* whiteLed = new WhiteLedEntity;
+        mEntityManager->addEntity(whiteLed);
+        whiteLed->setPos(i * 120 - 400, -500);
+        mScene->addItem(whiteLed);
+    }
 
     GroundEntity* ground = new GroundEntity;
     mEntityManager->addEntity(ground);
     mScene->addItem(ground);
 
-    setStyleSheet("background-color: #232936; border-color: #444444;");
+
+//    mRenderView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+//    setStyleSheet("background-color: #232936; border-color: #444444;");
 }
 
 void Playground::initConnections()

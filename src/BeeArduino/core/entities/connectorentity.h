@@ -12,13 +12,15 @@ public:
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
-    void initConnections();
 
 public slots:
 
+protected:
+    void timerEvent(QTimerEvent *event) override;
+
 private:
-    PinEntity* mStartPin;
-    PinEntity* mEndPin;
+    PinEntity* mInputPin;
+    PinEntity* mOutputPin;
 };
 
 #endif // CONNECTORENTITY_H
