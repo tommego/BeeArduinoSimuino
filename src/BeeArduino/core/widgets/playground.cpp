@@ -15,9 +15,9 @@ Playground::Playground(QWidget *parent) : QFrame(parent),
     mSystemManager(QSharedPointer<SystemManager>(new SystemManager)),
     mSceneUpdateTimer(QSharedPointer<QTimer>(new QTimer(this))),
     mMinZoomFactor(5),
-    mMaxZoomFactor(1000),
-    mZoomFactor(25),
-    mZoomBase(25)
+    mMaxZoomFactor(10000),
+    mZoomFactor(250),
+    mZoomBase(250)
 {
     mSceneUpdateTimer->setInterval(25);
     initUI();

@@ -9,7 +9,7 @@ GroundEntity::GroundEntity(QGraphicsItem *parent):
     mGroundImage(QImage(":/icons/icon_ground.png")),
     mInputPin(new RoundPinEntity(this))
 {
-    mInputPin->setPos(0, mGroundImage.size().height() / 2 - 12);
+    mInputPin->setPos(0, -mGroundImage.size().height() / 2 + 12);
     mInputPin->setPinMode(2);
 }
 
