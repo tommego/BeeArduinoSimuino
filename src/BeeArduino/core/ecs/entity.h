@@ -12,13 +12,19 @@ class Entity : public QGraphicsObject
 public:
     explicit Entity(QGraphicsItem *parent = nullptr);
     ComponentList components();
+    void initConnections();
     int id();
     void setID(const int& id);
     bool isValid();
     void addComponent(QSharedPointer<Component> com);
     QPainterPath shape() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 signals:
+    void selected(Entity* entity);
+    void diselected(Entity* entiy);
+    void scenePosChanged();
+    void tick();
 
 public slots:
 
@@ -26,6 +32,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
 private:
     ComponentList mComponents;

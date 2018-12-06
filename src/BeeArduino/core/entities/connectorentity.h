@@ -8,22 +8,17 @@ class ConnectorEntity : public Entity
 {
     Q_OBJECT
 public:
-    ConnectorEntity(QGraphicsItem* parent = nullptr);
+    ConnectorEntity(QGraphicsItem* parent = nullptr, PinEntity* start = nullptr, PinEntity* end = nullptr);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
-    const QPointF& startPos(){return mStartPos;}
-    const QPointF& endPos(){return mEndPos;}
-    void setStartPos(const QPointF& startPos);
-    void setEndPos(const QPointF& endPos);
+    void initConnections();
 
+public slots:
 
 private:
-    QSharedPointer<PinEntity> mInputPin;
-    QSharedPointer<PinEntity> mOutputPin;
-    QPointF mStartPos;
-    QPointF mEndPos;
-    void updatePos();
+    QSharedPointer<PinEntity> mStartPin;
+    QSharedPointer<PinEntity> mEndPin;
 };
 
 #endif // CONNECTORENTITY_H

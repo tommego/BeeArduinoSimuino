@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     QSize desktopSize = app.screens().first()->availableGeometry().size();
-    w.resize(desktopSize * 0.5);
+    w.resize(desktopSize * 0.7);
     w.move((desktopSize.width() - w.width()) / 2, (desktopSize.height() - w.height()) / 2);
     w.show();
 

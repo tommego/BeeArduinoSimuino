@@ -1,7 +1,7 @@
 #include "unoboardentity.h"
 #include <QStyleOptionGraphicsItem>
 
-UnoBoardEntity::UnoBoardEntity(QGraphicsItem *parent): PinEntity (parent)
+UnoBoardEntity::UnoBoardEntity(QGraphicsItem *parent): Entity (parent)
 {
     setFlags(ItemIsSelectable | ItemIsMovable);
 
@@ -39,28 +39,7 @@ UnoBoardEntity::UnoBoardEntity(QGraphicsItem *parent): PinEntity (parent)
         mPins.append(pin);
     }
 
-    initConnections();
-}
-
-void UnoBoardEntity::initConnections()
-{
-//    foreach (QSharedPointer<PinEntity> pin, mPins) {
-//        connect(pin.data(), &PinEntity::toggleStart, [=](PinEntity* pin){
-//            emit toggleStart(pin);
-//            qDebug() << "board pin toggle start " << pin;
-//        });
-
-//        connect(pin.data(), &PinEntity::toggleEnd, [=](PinEntity* pin){
-//            emit toggleEnd(pin);
-//            qDebug() << "board pin toggle end " << pin;
-//        });
-
-//        connect(pin.data(), &PinEntity::toggleDrop, [=](PinEntity* pin){
-//            emit toogleDrop(pin);
-//            qDebug() << "board pin toggle drop " << pin;
-
-//        });
-//    }
+    setZValue(0);
 }
 
 QRectF UnoBoardEntity::boundingRect() const
@@ -86,25 +65,4 @@ void UnoBoardEntity::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     }
 
     painter->drawImage(boundingRect(), mDrawImg);
-}
-
-void UnoBoardEntity::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    QGraphicsItem::mousePressEvent(event);
-    update();
-}
-
-void UnoBoardEntity::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (event->modifiers() & Qt::ShiftModifier) {
-        update();
-        return;
-    }
-    QGraphicsItem::mouseMoveEvent(event);
-}
-
-void UnoBoardEntity::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    QGraphicsItem::mouseReleaseEvent(event);
-    update();
 }

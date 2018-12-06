@@ -17,17 +17,13 @@ public:
     void initConnections();
 
 public slots:
-    void pinToggleStart(PinEntity* pin);
-    void pinToggleEnd(PinEntity* pin);
-    void pinDrop(PinEntity* pin);
-    void updateDrawConnector();
+    void onItemSelected(Entity* entity);
+    void onItemDiselected(Entity* entity);
+    void connectPin(PinEntity* start, PinEntity* end);
 
 private:
     QSharedPointer<QGraphicsScene> scene;
-    PinEntity* mcurrentDragePin;
-    PinEntity* mcurrentDropPin;
-    QTimer* mDrawConnectorTimer;
-    ConnectorEntity* mConnector;
+    PinEntity* mSelectedPin;
 
 };
 

@@ -17,25 +17,13 @@ public:
     void setPinVal(const int& val);
     void resetState();
 
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-    void dropEvent(QGraphicsSceneDragDropEvent *event) override;
-
 signals:
     void pinValChanged(const int& val);
     void pinModeChanged(const int& mode);
-    void toggleStart(PinEntity* who);
-    void toggleEnd(PinEntity* who);
-    void toggleDrop(PinEntity* who);
 
 private:
     int mPinMode; // 0: INPUT, 1: OUTPUT
     int mPinVal;
-    bool mPressed;
-    QPointF mPressPos;
-    bool mDragging;
 };
 
 #endif // PINENTITY_H
